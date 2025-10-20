@@ -9,7 +9,7 @@ RUN apk update && apk upgrade
 
 # set a non privileged user to use when running this image
 RUN addgroup -S nodejs && adduser -S nodejs -G nodejs
-USER nodejs
+# USER nodejs
 # set right (secure) folder permissions
 RUN mkdir -p /home/nodejs/app/node_modules && chown -R nodejs:nodejs /home/nodejs/app
 
@@ -24,6 +24,8 @@ ENV NPM_CONFIG_LOGLEVEL=warn
 
 # copy project definition/dependencies files, for better reuse of layers
 COPY --chown=nodejs:nodejs package*.json ./
+
+USER nodejs
 
 RUN apk add --no-cache git
 
